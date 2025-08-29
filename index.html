@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonata Rafael Ferreira Jeronimo - Portfolio</title>
+    <meta name="description" content="Software Engineering student and Full Stack Developer specializing in React, JavaScript, Java, and Python. Experience in DevOps and cloud infrastructure.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'primary': {
+                            50: '#f0f9ff',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        },
+                        'secondary': {
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'gradient': 'gradient 15s ease infinite',
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                    },
+                    backgroundSize: {
+                        '300%': '300%',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .gradient-text {
+            background: linear-gradient(-45deg, #0ea5e9, #8b5cf6, #ec4899, #10b981);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 15s ease infinite;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .dark .glass {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Theme transition */
+        * {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Dark mode toggle button styles */
+        .theme-toggle {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: #374151;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .theme-toggle.dark {
+            background: #4f46e5;
+        }
+        
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .theme-toggle.dark::before {
+            transform: translateX(24px);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-blue-900 min-h-screen transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-xl font-bold gradient-text">Jonata Rafael</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Home</a>
+                    <a href="#about" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">About</a>
+                    <a href="#skills" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Skills</a>
+                    <a href="#experience" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Experience</a>
+                    <a href="#contact" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Contact</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-sun text-yellow-500 absolute top-1 left-1 text-xs opacity-100 dark:opacity-0 transition-opacity duration-300"></i>
+                        <i class="fas fa-moon text-blue-300 absolute top-1 right-1 text-xs opacity-0 dark:opacity-100 transition-opacity duration-300"></i>
+                    </button>
+                    <button class="md:hidden text-gray-700 dark:text-gray-300">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center relative z-10">
+                <div class="mb-8">
+                    <div class="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 p-1">
+                        <div class="w-full h-full rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center transition-colors duration-300">
+                            <i class="fas fa-user text-4xl text-gray-600 dark:text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    <span class="gradient-text">Jonata Rafael</span><br>
+                    <span class="text-gray-800 dark:text-gray-200 transition-colors duration-300">Ferreira Jeronimo</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-4 max-w-3xl mx-auto transition-colors duration-300">
+                    Software Engineering Student | Full Stack Developer
+                </p>
+                
+                <p class="text-lg text-gray-500 dark:text-gray-500 mb-8 max-w-2xl mx-auto transition-colors duration-300">
+                    Specialized in React, JavaScript, Java, and Python. Experience in DevOps and cloud infrastructure.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#contact" class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-lg hover:from-primary-600 hover:to-primary-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                        <i class="fas fa-envelope mr-2"></i>
+                        Get In Touch
+                    </a>
+                    <a href="https://linkedin.com/in/jonata-rafael-ferreira-jeronimo-648398292" target="_blank" class="inline-flex items-center px-8 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-lg hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300">
+                        <i class="fab fa-linkedin mr-2"></i>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-primary-400 to-secondary-400 rounded-full opacity-20 animate-float"></div>
+        <div class="absolute top-40 right-10 w-16 h-16 bg-gradient-to-r from-secondary-400 to-pink-400 rounded-full opacity-20 animate-float" style="animation-delay: -2s;"></div>
+        <div class="absolute bottom-20 left-1/4 w-12 h-12 bg-gradient-to-r from-green-400 to-blue-400 rounded-full opacity-20 animate-float" style="animation-delay: -4s;"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 transition-colors duration-300">
+                    About <span class="gradient-text">Me</span>
+                </h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto transition-colors duration-300">
+                    Passionate developer always seeking new challenges and continuous learning.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300">
+                        I am a Software Engineering student at FIAP and currently work in DevOps Infrastructure and N1 Support. My journey in technology began with HTML, CSS, and JavaScript, evolving to React, Oracle Database, and knowledge in Java and Python acquired during college.
+                    </p>
+                    
+                    <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300">
+                        I have a great interest in systems development and constantly seek to unite theory and practice. On my GitHub, I maintain my own React projects that demonstrate my evolution and applicability of the concepts I learn.
+                    </p>
+                    
+                    <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300">
+                        My goal is to transition to a software development position where I can contribute with efficient, scalable, and impactful solutions, while continuing to improve my technical skills and learn new technologies.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                        <div class="text-3xl font-bold text-primary-600 dark:text-primary-400 mb-2 transition-colors duration-300">2+</div>
+                        <div class="text-gray-600 dark:text-gray-400 transition-colors duration-300">Years Experience</div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                        <div class="text-3xl font-bold text-secondary-600 dark:text-secondary-400 mb-2 transition-colors duration-300">7+</div>
+                        <div class="text-gray-600 dark:text-gray-400 transition-colors duration-300">Technologies</div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                        <div class="text-3xl font-bold text-green-600 dark:text-green-400 mb-2 transition-colors duration-300">4+</div>
+                        <div class="text-gray-600 dark:text-gray-400 transition-colors duration-300">Certifications</div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                        <div class="text-3xl font-bold text-pink-600 dark:text-pink-400 mb-2 transition-colors duration-300">100%</div>
+                        <div class="text-gray-600 dark:text-gray-400 transition-colors duration-300">Dedication</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-slate-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 transition-colors duration-300">
+                    My <span class="gradient-text">Skills</span>
+                </h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto transition-colors duration-300">
+                    Technologies and tools I master to create efficient and modern solutions.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Frontend -->
+                <div class="bg-white dark:bg-slate-700 rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-600">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-code text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 transition-colors duration-300">Frontend</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700 dark:text-gray-300 transition-colors duration-300">React</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 dark:bg-gray-600 rounded-full transition-colors duration-300"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700 dark:text-gray-300 transition-colors duration-300">JavaScript</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700 dark:text-gray-300 transition-colors duration-300">HTML/CSS</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="bg-white dark:bg-slate-700 rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-600">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-server text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 transition-colors duration-300">Backend</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700 dark:text-gray-300 transition-colors duration-300">Java</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 dark:bg-gray-600 rounded-full transition-colors duration-300"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700 dark:text-gray-300 transition-colors duration-300">Python</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 dark:bg-gray-600 rounded-full transition-colors duration-300"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700 dark:text-gray-300 transition-colors duration-300">Oracle DB</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 dark:bg-gray-600 rounded-full transition-colors duration-300"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DevOps -->
+                <div class="bg-white dark:bg-slate-700 rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-600">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-cloud text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 transition-colors duration-300">DevOps & Cloud</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700 dark:text-gray-300 transition-colors duration-300">AWS</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 dark:bg-gray-600 rounded-full transition-colors duration-300"></div>
+                                <div class="w-2 h-2 bg-gray-300 dark:bg-gray-600 rounded-full transition-colors duration-300"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700 dark:text-gray-300 transition-colors duration-300">Infrastructure</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 dark:bg-gray-600 rounded-full transition-colors duration-300"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700 dark:text-gray-300 transition-colors duration-300">N1 Support</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 transition-colors duration-300">
+                    My <span class="gradient-text">Experience</span>
+                </h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto transition-colors duration-300">
+                    Professional and academic journey that shaped my career in technology.
+                </p>
+            </div>
+            
+            <div class="relative">
+                <!-- Timeline Line -->
+                <div class="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gradient-to-b from-primary-500 to-secondary-500"></div>
+                
+                <!-- Experience Items -->
+                <div class="space-y-12">
+                    <!-- Current Job -->
+                    <div class="relative flex items-center">
+                        <div class="flex-1 pr-8 text-right">
+                            <div class="bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-600">
+                                <div class="flex items-center justify-end mb-2">
+                                    <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-medium px-2.5 py-0.5 rounded-full transition-colors duration-300">Current</span>
+                                </div>
+                                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2 transition-colors duration-300">IT Infrastructure</h3>
+                                <p class="text-primary-600 dark:text-primary-400 font-medium mb-2 transition-colors duration-300">Across Consultoria de RH</p>
+                                <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 transition-colors duration-300">Nov 2024 - Present</p>
+                                <ul class="text-gray-700 dark:text-gray-300 text-sm space-y-1 transition-colors duration-300">
+                                    <li>• Attended N1 Support technical calls</li>
+                                    <li>• Maintained cloud environments (AWS)</li>
+                                    <li>• Implemented automated system improvements</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary-500 rounded-full border-4 border-white dark:border-slate-900 shadow-lg transition-colors duration-300"></div>
+                        <div class="flex-1 pl-8"></div>
+                    </div>
+                    
+                    <!-- Previous Job -->
+                    <div class="relative flex items-center">
+                        <div class="flex-1 pr-8"></div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-secondary-500 rounded-full border-4 border-white dark:border-slate-900 shadow-lg transition-colors duration-300"></div>
+                        <div class="flex-1 pl-8">
+                            <div class="bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-600">
+                                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2 transition-colors duration-300">Administrative Assistant</h3>
+                                <p class="text-secondary-600 dark:text-secondary-400 font-medium mb-2 transition-colors duration-300">Criativa Consórcios</p>
+                                <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 transition-colors duration-300">Jan 2023 - Nov 2024</p>
+                                <ul class="text-gray-700 dark:text-gray-300 text-sm space-y-1 transition-colors duration-300">
+                                    <li>• Supported documentation management</li>
+                                    <li>• Performed database queries</li>
+                                    <li>• Contributed to commercial team</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Education -->
+                    <div class="relative flex items-center">
+                        <div class="flex-1 pr-8 text-right">
+                            <div class="bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-600">
+                                <div class="flex items-center justify-end mb-2">
+                                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium px-2.5 py-0.5 rounded-full transition-colors duration-300">In Progress</span>
+                                </div>
+                                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2 transition-colors duration-300">Software Engineering</h3>
+                                <p class="text-blue-600 dark:text-blue-400 font-medium mb-2 transition-colors duration-300">FIAP</p>
+                                <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 transition-colors duration-300">Jul 2023 - Jul 2027</p>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm transition-colors duration-300">Bachelor's degree focused on systems development, programming, and modern technologies.</p>
+                            </div>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full border-4 border-white dark:border-slate-900 shadow-lg transition-colors duration-300"></div>
+                        <div class="flex-1 pl-8"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-slate-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 transition-colors duration-300">
+                    <span class="gradient-text">Certifications</span>
+                </h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto transition-colors duration-300">
+                    Courses and certifications that complement my technical education.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-600">
+                    <div class="text-center">
+                        <div class="w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-code text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-2 transition-colors duration-300">Algorithms</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors duration-300">Learn to Program</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-600">
+                    <div class="text-center">
+                        <div class="w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-laptop-code text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-2 transition-colors duration-300">HTML & CSS</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors duration-300">Web Development</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-600">
+                    <div class="text-center">
+                        <div class="w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-red-400 to-pink-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-database text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-2 transition-colors duration-300">Oracle DB</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors duration-300">Database</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-600">
+                    <div class="text-center">
+                        <div class="w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-green-400 to-emerald-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-leaf text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-2 transition-colors duration-300">Sustainability</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors duration-300">Social Education</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 transition-colors duration-300">
+                    Get In <span class="gradient-text">Touch</span>
+                </h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto transition-colors duration-300">
+                    Let's talk about opportunities and interesting projects!
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-8">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-envelope text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800 dark:text-gray-200 transition-colors duration-300">Email</h3>
+                                <a href="mailto:jonatarafael209@gmail.com" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
+                                    jonatarafael209@gmail.com
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                                <i class="fab fa-linkedin text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800 dark:text-gray-200 transition-colors duration-300">LinkedIn</h3>
+                                <a href="https://linkedin.com/in/jonata-rafael-ferreira-jeronimo-648398292" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+                                    Professional Profile
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-gray-700 to-gray-800 rounded-lg flex items-center justify-center">
+                                <i class="fab fa-github text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800 dark:text-gray-200 transition-colors duration-300">GitHub</h3>
+                                <span class="text-gray-600 dark:text-gray-400 transition-colors duration-300">Projects in development</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800 dark:text-gray-200 transition-colors duration-300">Location</h3>
+                                <span class="text-gray-600 dark:text-gray-400 transition-colors duration-300">São Paulo, SP - Brazil</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-slate-700 rounded-xl p-8 shadow-lg border border-gray-100 dark:border-gray-600 transition-colors duration-300">
+                        <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6 transition-colors duration-300">Let's work together!</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 transition-colors duration-300">
+                            I'm always open to new opportunities and challenging projects. If you have an interesting idea or a position that fits my profile, don't hesitate to get in touch!
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center text-gray-700 dark:text-gray-300 transition-colors duration-300">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                <span>Available for full-time opportunities</span>
+                            </div>
+                            <div class="flex items-center text-gray-700 dark:text-gray-300 transition-colors duration-300">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                <span>Open to freelance projects</span>
+                            </div>
+                            <div class="flex items-center text-gray-700 dark:text-gray-300 transition-colors duration-300">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                <span>Interested in collaborations</span>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <a href="mailto:jonatarafael209@gmail.com" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-lg hover:from-primary-600 hover:to-primary-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Send Email
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 dark:bg-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center">
+                <div class="text-2xl font-bold gradient-text mb-4">Jonata Rafael Ferreira Jeronimo</div>
+                <p class="text-gray-400 dark:text-gray-500 mb-6 transition-colors duration-300">Full Stack Developer | Software Engineering Student</p>
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="mailto:jonatarafael209@gmail.com" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/jonata-rafael-ferreira-jeronimo-648398292" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+                <div class="border-t border-gray-800 dark:border-gray-700 pt-8 transition-colors duration-300">
+                    <p class="text-gray-500 dark:text-gray-600 text-sm transition-colors duration-300">
+                        © 2025 Jonata Rafael Ferreira Jeronimo. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Dark mode functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or default to system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            html.classList.add('dark');
+            themeToggle.classList.add('dark');
+        }
+        
+        // Theme toggle functionality
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            themeToggle.classList.toggle('dark');
+            
+            // Save preference
+            if (html.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-white/90', 'dark:bg-slate-900/90');
+            } else {
+                nav.classList.remove('bg-white/90', 'dark:bg-slate-900/90');
+            }
+        });
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe sections for animations
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
+
